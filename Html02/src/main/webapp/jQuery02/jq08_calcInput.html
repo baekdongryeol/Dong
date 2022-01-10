@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** 내장함수 eval 을 이용한 계산기 (JQuery) **</title>
+<script src="../myLib/jquery-3.2.1.min.js"></script>
+<script>
+//** 과제 
+//1) input Tag 의 value 속성값 
+//=> jQuery 메서드  : val()
+//=> read: val() , write: val('출력내용') 
+//=> JavaScript : value 
+//2) 기능 처리 방식 모두 jQuery 로  (jQuery의 이벤트 와 메서드 )
+//=> input, compute , clear 기능을 jQuery 로 변경 하세요 ~~
+
+//3) display Tag를 마우스로 클릭하면  alert 로 
+//   dispaly의 value 값을 출력하세요
+
+$(function(){
+	// ** $.isNumeric
+	// => jQueruy 가 제공하는 내장함수 또는 메서드 라고도 함
+	//    숫자 값인지 확인가능 (정수, 실수 모두 가능)
+	// => JS 의 Number.isInteger() 와 비교
+	var enter=false;
+	$('.bt').css('width','50px').click(function(){
+		if ( $('#display').val()==0 ||   
+			( enter==true && $.isNumeric($(this).html()) ) ) 
+			// => 연산결과 출력후 숫가가 입력되면 clear -> 새로운 연산
+			//    연산자가 입력되면 이어서 연산하도록 해줌
+			 $('#display').val($(this).html());
+		else $('#display').val($('#display').val()+$(this).html());
+		enter=false;
+	}); //bt_css_click
+	
+	$('#enter').click(function(){
+		enter=true;
+		$('#display').val(eval($('#display').val()));          
+	}); //enter_click
+	
+	$('#clear').click(function(){
+		$('#display').val('');   
+	}); //enter_click
+	
+	$('#back').click(function(){
+		var s=$('#display').val();
+		$('#display').val(s.substr(0, (s.length-1)));     
+	}); //enter_click
+	
+});//ready
+
+
+</script>
+</head>
+<body>
+<h3>** eval 을 이용한 계산기_JQuery **</h3>
+<pre>
+=> eval : 문자열을 수식으로 바꾸어서 계산을 해줌
+=> input Tag 의 값처리 
+   JS : document.getElementById('display').value
+   JQ
+    -> read : $('#display').val()
+    -> write: $('#display').val('출력내용')
+</pre>
+<hr>
+* display : <br>
+<input id="display" value="0" size="25">
+<br>
+<button class=bt>7</button>
+<button class=bt>8</button>
+<button class=bt>9</button>
+<button class=bt>/</button>
+<br>
+<button class=bt>4</button>
+<button class=bt>5</button>
+<button class=bt>6</button>
+<button class=bt>*</button>
+<br>
+<button class=bt>1</button>
+<button class=bt>2</button>
+<button class=bt>3</button>
+<button class=bt>-</button>
+<br>
+<button class=bt>0</button>
+<button class=bt>+</button>
+<button class=bt>(</button>
+<button class=bt>)</button>
+<br>
+<button id="clear">Clear</button>
+<button id="enter">Enter</button>
+<button id="back" style="width:100px;">Backspace</button>
+
+</body>
+</html>

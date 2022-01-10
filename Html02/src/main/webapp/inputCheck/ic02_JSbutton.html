@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** inCheck01: JS submit JoinForm **</title>
+<script src="../myLib/jquery-3.2.1.min.js"></script>
+<script>
+//=> JavaScript 방식으로 type button 활용 
+//=> onclick 이벤트를 작성해서, 무결성 점검을 하고, 
+//=> 오류 발생시에 return -> function 종료
+//   오류 없을때 -> form 의 submit 을 실행해야함 (form 의 submit 메서드 실행)
+
+//** 오류 확인사항
+//ID : 길이4 이상, 영문자,숫자 로만 구성
+//password : 길이4이상, 숫자와 특수문자는 반드시 1개 이상 포함할것
+//Name: 길이 2이상, 영문 또는 한글로 만 입력
+//Birthd: 길이 10 인지 
+//Point: 정수
+//Weight: 실수
+
+function inCheck() {
+// Error 있으면: return 
+//       없으면: 최종적으로 form 의 submit 메서드 실행 
+// Error Message : alert 으로
+
+// 1) value 가져오기
+	var id=document.getElementById('id').value;
+	var password=$('#password').val();
+	var name=$('#name').val();
+	var birthd=$('#birthd').val();
+	var point=$('#point').val();
+	var weight=$('#weight').val();
+	
+// 2) 무결성 점검
+	
+	//** ID : 길이4 이상, 영문자,숫자 로만 구성 
+	if (id.length<4) {
+		alert('~~ id 는 4글자 이상 입니다 ~~');
+		return; 
+		// function은 더이상 진행하지 않고 종료됨 
+	}else if ( id.replace(/[a-z.0-9]/gi ,'').length > 0 ) {
+		alert('~~ id 는 영문자, 숫자로만 입력 하세요 ~~');
+		return; 
+	}
+	//** Password : 길이4이상, 영문자, 숫자와 특수문자는 반드시 1개 이상 포함할것
+	//=> 특수문자 : HTML 특수문자 리스트표 참고 (http://kor.pe.kr/util/4/charmap2.htm)
+	//=> input Tag의 type password 의 경우에는 기본적으로 영문자판으로 입력됨 
+	if (password.length<4) {
+		alert('~~ password 는 4글자 이상 입니다 ~~');
+		return; 
+	}else if ( password.replace(/[!-*.@]/gi,'').length >= password.length ) {
+		alert('~~ password 는 특수문자가 반드시 1개 이상 포함되어야 합니다 ~~');
+		return;
+	}else if ( password.replace(/[a-z.0-9.!-*.@]/gi ,'').length > 0 ) {
+		alert(' ~~ password 는 영문자, 숫자, 특수문자 로만 입력 하세요 ~~');
+		return;	
+	}
+	// ** Name : 길이 2이상, 영문 또는 한글로 만 입력
+	if ( name.length < 2 ) {
+		alert(' ~~ name 은 2글자 이상  입니다 ~~');
+		return;
+	}else if ( name.replace(/[a-z.가-힣]/gi,'').length > 0 ) {
+		alert(' ~~ name 은 한글, 영문 으로만 입력 하세요 ~~');
+		return;
+	}
+	// ** Birthd: 길이 10 인지 
+	if ( birthd.length !=10 ) {
+		alert(' ~~ 생년월일을 정확하게 입력 하세요 (yyyy-mm-dd) ~~');
+		return;
+	}
+	// ** Point: 정수
+	// => $.isNumeric(n) : 정수, 실수 모두포함
+	// => Number.isInteger(n) : 정수 확인가능_n 이 정수면 true
+	//    단, Number.isInteger(parseInt(point) : 실수 입력시 정수로 바뀌어처리됨 
+	if ( $.isNumeric(point)==false ) {
+		alert(' ~~ point 를 정확하게 숫자를 입력 하세요 ~~');
+		return;
+	}if ( point.replace(/[.]/g,'').length < point.length ) {
+		alert(' ~~ point 를 정확하게 정수로만 입력 하세요 ~~');
+		return;
+	}
+	
+	// ** Weight: 실수, 20~200 구간 확인
+	if ( $.isNumeric(weight)==false ) {
+		alert(' ~~ weight 를 정확하게 숫자를 입력 하세요 ~~');
+		return;
+	}else if ( parseFloat(weight)<20 || parseFloat(weight)>200 ) {
+		alert(' ~~ weight 범위를 벗어남: 20~200 사이의 숫자를 입력 하세요 ~~');
+		return;
+	}
+	
+	//** 오류 점검 완료
+	if (confirm("~~ 정말 가입 하십니까 ? (Yes:확인 / No:취소)")) 
+		 // submit 진행 (404)
+		 // $('#myForm').submit();
+		 document.getElementById('myForm').submit();
+	else {
+		 alert('~~ 가입이 취소 되었습니다 ~~');
+		 return; 
+	}
+} //inCheck
+
+</script>
+</head>
+<body>
+<pre><h3>** input Tag 의 입력값 무결성 점검_JS, button **</h3>
+=> input Tag 의 type 값이 button
+	-> 클릭시에 submit 이 진행되지 않음
+	-> 그러므로 오류시는 처리하면 되지만, 
+	-> 오류 없을때 submit 을 실행 시켜야 함.
+
+=> 인라인+스크립트 방식으로 inCheck() 작성 & 지정	
+</pre>
+<hr>
+<h2>** inCheck02: JS button JoinForm **</h2>
+<form action="join" method="get" id="myForm">
+<table>
+	<tr height="40"><td bgcolor="Lavender">I  D</td>
+		<td><input type="text" name="id" id="id" size="20"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Lavender">Password</td>
+		<td><input type="password" name="password" id="password" size="20"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Lavender">Name</td>
+		<td><input type="text" name="name" id="name" size="20"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Lavender">Birthday</td>
+		<td><input type="date" name="birthd" id="birthd"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Lavender">Point</td>
+		<td><input type="text" name="point" id="point" size="20"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Lavender">Weight</td>
+		<td><input type="text" name="weight" id="weight" size="20"></td>
+	</tr>
+	<tr height="40"><td></td>
+		<td><input type="button" value="가입" onclick="inCheck()">&nbsp;&nbsp;
+			<input type="reset" value="취소">
+		</td>
+	</tr>
+</table></form>
+</body>
+</html>

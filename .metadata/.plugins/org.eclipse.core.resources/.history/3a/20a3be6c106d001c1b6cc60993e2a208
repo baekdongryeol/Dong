@@ -1,0 +1,21 @@
+/**
+** AjaxTest03
+=> 반복문에 이벤트 적용하기 
+=> amlist -> id별로 board조회, delete 기능, ImageDownload
+=> ablist -> 상세글 보기 기능
+*/
+$(function(){
+//** Ajax BoardList
+	$('#axblist').click(function(){
+		$.ajax({
+			type: "Get",
+			url:"axblist",
+			success:function(resultPage){
+				$('#resultArea2').html(resultPage);	
+			},
+			error:function() {
+				alert("~~ 서버오류!!! 잠시후 다시 하세요 ~~");
+			}
+		}); //ajax
+	}); //click
+}); //ready

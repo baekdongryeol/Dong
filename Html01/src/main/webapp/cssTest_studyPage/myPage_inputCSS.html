@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Join Us</title>
+<style>
+	* {margin: 0; padding: 0; border: 0;}
+	body {background-color: whitesmoke;}
+	
+	#container { width: 600px;   margin: 0 auto;}
+	#logo { font-size: 70px; color: limegreen; text-align: center;
+		margin-top: 35px; margin-bottom: 70px;  
+		}
+	
+	div div{
+		margin:25px auto; align-content: center; 
+	}
+	
+	.contentName {font-size: 22px; margin-left: 3px; }
+	
+	input {width: 600px; height: 50px; border: 2px solid lightgray; font-size: 15px}
+	
+	.select { width: 600px; height: 50px; ; font-size: 15px; border: 2px solid lightgray;}
+	
+	.tech {height: 110px;}
+	
+	.birth {width: 190px; height: 50px; border: 2px solid lightgray; }
+	
+	select {box-sizing: content-box;}
+
+	input:focus,select:focus { outline-color: limegreen; border-color: limegreen;}
+	
+	input[type="submit"] { color: white; background-color: limegreen; margin-bottom: 50px; }
+	
+	input[type="submit"]:hover {cursor: pointer; } 
+			
+</style>
+
+</head>
+<body>
+<div id="logo"><b>Join Us</b></div>
+<div id="container">
+	<form action="#" method="get">
+		<div>
+			<span class="contentName"><b>아이디</b></span> <br>
+			<input type="text" name="id"; maxlength="15" placeholder="15글자 이내로 입력하세요."> <br>
+		</div>
+		<div>
+			<span class="contentName"><b>비밀번호</b></span> <br>
+			<input type="password" name="password"; maxlength="20" placeholder="소문자,대문자,특수문자가 모두 포함되어야합니다.">
+		</div>
+		<div>
+			<span class="contentName"><b>비밀번호 재확인</b></span> <br>
+			<input type="text" name="passwordCheck" maxlength="20" >
+		</div>
+		<div>
+			<span class="contentName"><b>이름</b></span> <br>
+			<input type="text" name="name" maxlength="15" >
+		</div>
+		<div>
+			<span class="contentName"><b>생년월일</b></span> <br>
+			<input class="birth" type="text" name="birthYear" maxlength="4" placeholder="년(4자)"> 
+			<select class="birth" name="birthMonth" >
+				<option value="월">월</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+			</select>
+			<input class="birth" name="birthDay" type="text"  maxlength="2" placeholder="일")> 
+		</div>
+		<div>
+			<span class="contentName"><b>성별</b></span> <br>
+			<select class="select" name="gender">
+				<option value="남">남</option>
+				<option value="여">여</option>
+			</select>
+		</div>
+		<div>
+			<span class="contentName"><b>본인확인이메일</b></span><span style="color: gray;">(선택)</span> <br>
+			<input type="text" name="email" maxlength="15" placeholder="선택입력">
+		</div>
+		<div>
+			<span class="contentName"><b>보유기술</b></span><span style="color: gray;">(다중선택가능)</span> <br>
+			<select class="select tech" name="tech" multiple="multiple" size="6">
+				<option value="1">Java</option>
+				<option value="2">MySQL</option>
+				<option value="3">Oracle</option>
+				<option value="4">HTML</option>
+				<option value="5">CSS</option>
+				<option value="6">JavaScript</option>
+			</select>
+		</div>
+		
+		<input type="submit" value="가입하기">
+	</form>
+
+</div>
+
+
+
+</body>
+</html>

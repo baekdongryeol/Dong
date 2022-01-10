@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** addEventListener()를 이용한 리스너등록 **</title>
+<script>
+// ** addEventListener('이벤트Type', 이벤트핸들러)
+// => addEventListener 메서드에 이벤트타입 과 이벤트핸들러 등록
+// => 이떄 등록되는 이벤트핸들러는 CallBack함수(매개변수로 전달되는함수) 이므로 함수의 이름만 등록
+
+// ** 방법1.
+/*
+  onload=function() {
+	  var p = document.getElementById('p'); 
+	  p.addEventListener('mouseover', over);
+	  p.addEventListener('mouseout', out);
+	  // * 익명함수 사용과 비교
+	  p.addEventListener('mouseout', function() {
+		  p.style.backgroundColor="Yellow";
+	  });
+	  
+  } //onload
+*/
+  function over() { p.style.backgroundColor="pink"; }
+  function out() { p.style.backgroundColor="Yellow"; }
+  
+// ** 방법2.
+// => 함수를 만들고, 적절한 이벤트리스너(body 의 onload) 에 등록 
+  function event_init() {
+	  var p = document.getElementById('p'); 
+	  p.addEventListener('mouseover', over);
+	  p.addEventListener('mouseout', out);	
+  } //event_init  	
+
+</script>
+</head>
+<body onload="event_init()">
+<h3>** addEventListener()를 이용한 리스너등록 **</h3>
+<hr>
+<p id="p">마우스를 올리면 ColorChange 됩니다 ~~~</p>
+</body>
+</html>

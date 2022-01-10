@@ -1,0 +1,40 @@
+/**
+** AjaxTest02
+=> 반복문에 이벤트 적용하기 
+=> amlist -> id별로 board조회, delete 기능, ImageDownload
+=> ablist -> 상세글 보기 기능
+*/
+$(function(){
+//** Ajax MemberList
+	$('#axmlist').click(function(){
+		$.ajax({
+			type: "Get",
+			url:"axmlist",
+			success:function(resultPage){
+				$('#resultArea1').html(resultPage);	
+			},
+			error:function() {
+				alert("~~ 서버오류!!! 잠시후 다시 하세요 ~~");
+			}
+		}); //ajax
+	}); //click
+}); //ready
+
+// ** 반복문에 이벤트 적용하기
+// => id별로 board 조회
+// test 1) JS function
+function aidBList(id) {
+	$.ajax({
+		type:"Get",
+		url : "aidblist",
+		data: {
+			id:id
+		},
+		success:function() {
+			$('#resultArea2').html(resultPage);
+		},
+		error:function() {
+			alert('서버 오류 !! 잠시후 다시 하세요 ~~');		
+		}
+	}); //ajax
+} //aidBList

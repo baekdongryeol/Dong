@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** inCheck01: JS submit JoinForm **</title>
+<script src="../myLib/jquery-3.2.1.min.js"></script>
+<script>
+//=> JQueruy 방식으로 type submit 활용 
+//=> submit을 클릭하면 submit 이벤트가 발생되고,
+//   이 발생된 이벤트를 이용해서 무결성 점검 가능
+//=> 오류 있으면 : Message 출력 후, submit 이벤트를 무효화 시켜야 함.
+//              JQ 의 이벤트 무효화 -> e.preventDefault() 
+//       없으면 : submit 이벤트 진행.
+//=> 이벤트 핸들러의 첫번째 매개변수는 현재 발생된 이벤트객체를 전달
+
+//$(document).ready(function(){
+$(function(){
+	
+  $('#myForm').submit(function(e){
+	// 1) value 가져오기
+	var id=$('#id').val();
+	var password=$('#password').val();
+	var name=$('#name').val();
+	var birthd=$('#birthd').val();
+	var point=$('#point').val();
+	var weight=$('#weight').val();
+		
+	// 2) 무결성 점검
+	//** ID : 길이4 이상, 영문자,숫자 로만 구성 
+	if (id.length<4) {
+		alert('~~ id 는 4글자 이상 입니다 ~~');
+		e.preventDefault();
+		$('#id').focus();
+		return; 
+		// 이벤트 무효화후, function 종료 
+	}else if ( id.replace(/[a-z.0-9]/gi ,'').length > 0 ) {
+		alert('~~ id 는 영문자, 숫자로만 입력 하세요 ~~');
+		e.preventDefault();
+		$('#id').focus();
+		return; 
+	}
+	//** Password : 길이4이상, 영문자, 숫자와 특수문자는 반드시 1개 이상 포함할것
+	//=> 특수문자 : HTML 특수문자 리스트표 참고 (http://kor.pe.kr/util/4/charmap2.htm)
+	//=> input Tag의 type password 의 경우에는 기본적으로 영문자판으로 입력됨 
+	if (password.length<4) {
+		alert('~~ password 는 4글자 이상 입니다 ~~');
+		e.preventDefault();
+		return; 
+	}else if ( password.replace(/[!-*.@]/gi,'').length >= password.length ) {
+		alert('~~ password 는 특수문자가 반드시 1개 이상 포함되어야 합니다 ~~');
+		e.preventDefault();
+		return;
+	}else if ( password.replace(/[a-z.0-9.!-*.@]/gi ,'').length > 0 ) {
+		alert(' ~~ password 는 영문자, 숫자, 특수문자 로만 입력 하세요 ~~');
+		e.preventDefault();
+		return;	
+	}
+	// ** Name : 길이 2이상, 영문 또는 한글로 만 입력
+	if ( name.length < 2 ) {
+		alert(' ~~ name 은 2글자 이상  입니다 ~~');
+		e.preventDefault();
+		return;
+	}else if ( name.replace(/[a-z.가-힣]/gi,'').length > 0 ) {
+		alert(' ~~ name 은 한글, 영문 으로만 입력 하세요 ~~');
+		e.preventDefault();
+		return;
+	}
+	// ** Birthd: 길이 10 인지 
+	if ( birthd.length !=10 ) {
+		alert(' ~~ 생년월일을 정확하게 입력 하세요 (yyyy-mm-dd) ~~');
+		e.preventDefault();
+		return;
+	}
+	// ** Point: 정수
+	if ( $.isNumeric(point)==false ) {
+		alert(' ~~ point 를 정확하게 숫자를 입력 하세요 ~~');
+		e.preventDefault();
+		return;
+	}if ( point.replace(/[.]/g,'').length < point.length ) {
+		alert(' ~~ point 를 정확하게 정수로만 입력 하세요 ~~');
+		e.preventDefault();
+		return;
+	}
+	
+	// ** Weight: 실수, 20~200 구간 확인
+	if ( $.isNumeric(weight)==false ) {
+		alert(' ~~ weight 를 정확하게 숫자를 입력 하세요 ~~');
+		e.preventDefault();
+		return;
+	}else if ( parseFloat(weight)<20 || parseFloat(weight)>200 ) {
+		alert(' ~~ weight 범위를 벗어남: 20~200 사이의 숫자를 입력 하세요 ~~');
+		e.preventDefault();
+		return;
+	}
+	
+	//** 오류 점검 완료
+	if (confirm("~~ 정말 가입 하십니까 ? (Yes:확인 / No:취소)")==false) { 
+		 alert('~~ 가입이 취소 되었습니다 ~~');
+		 e.preventDefault();
+		 return; 
+	}	
+	// => submit 진행 -> 404
+  }); //submit
+}); // ready
+</script>
+
+</head>
+<body>
+<pre><h3>** input Tag 의 입력값 무결성 점검_JQ, submit **</h3>
+=> submit : 클릭시에 submit 이 바로 진행되며, form 에는 submit이벤트 발생
+=> 그러므로 발생된 form의 submit이벤트를 이용함 (이벤트핸들러를 작성)
+</pre>
+<hr>
+<h2>** inCheck03: JQuery submit JoinForm **</h2>
+<form action="join" method="get" id="myForm">
+<table>
+	<tr height="40"><td bgcolor="Khaki">I  D</td>
+		<td><input type="text" name="id" id="id" size="20"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Khaki">Password</td>
+		<td><input type="password" name="password" id="password" size="20"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Khaki">Name</td>
+		<td><input type="text" name="name" id="name" size="20"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Khaki">Birthday</td>
+		<td><input type="date" name="birthd" id="birthd"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Khaki">Point</td>
+		<td><input type="text" name="point" id="point" size="20"></td>
+	</tr>
+	<tr height="40"><td bgcolor="Khaki">Weight</td>
+		<td><input type="text" name="weight" id="weight" size="20"></td>
+	</tr>
+	<tr height="40"><td></td>
+		<td><input type="submit" value="가입">&nbsp;&nbsp;
+			<input type="reset" value="취소">
+		</td>
+	</tr>
+</table></form>
+</body>
+</html>

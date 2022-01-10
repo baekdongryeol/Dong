@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** Child(자식) & Descendent(후손) **</title>
+<style>
+	#div1 > h4 { color: blue; } /* Child(자식) */
+	#div2 h4 { color: red; } /* Descendent(후손) */
+	
+	#div1, h4 { color: green; } 
+	/* 합집합, 단, id가 우선적용되어 Div1의 child와 Div2 의 h4에는 적용안됨  */
+	h3#div2 {color: orange; } /* 교집합 -> id가 div2 인 h3만 적용*/
+</style>
+
+
+</head>
+<body>
+<h3 id="div1">** Test1. Child(자식)</h3>
+<div id="div1">Div1_ChildTest
+	<h4>Div1 의 Child1</h4>
+	<h4>Div1 의 Child2</h4>
+	<div>
+		<h4>Div1 의 손자1</h4>
+		<h4>Div1 의 손자2</h4>
+	</div>
+</div>
+<h3 id="div2">** Test2. Descendent(후손)</h3>
+<div id="div2">Div2_DescendentTest
+	<h4>Div2 의 Child1</h4>
+	<h4>Div2 의 Child2</h4>
+	<div>
+		<h4>Div2 의 손자1</h4>
+		<h4>Div2 의 손자2</h4>
+	</div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** CSS Layout1 : Div, iframe **</title>
+<style>
+	* { margin:0; border:0; padding:0; }
+	body { margin:0 auto; width:900px; }
+
+	#header { width:100%; height:160px; background-color:rgb(255, 255, 255); }
+	#nav { width:150px; height:500px; background-color:yellow; float:left; }
+	#section { width:750px; height:500px; background-color:rgb(234, 211, 187); float:left; }
+	#footer { width:100%; height:150px; background-color:rgb(211, 138, 78); clear:both; }
+
+	iframe { width:100%; height:100%; }   /* background:inherit; */ 
+</style>
+</head>
+<body>
+<div id="header">
+	<iframe src="header.html"></iframe>
+</div>
+<div id="nav">
+	<iframe src="leftmenu.html"></iframe>
+</div>
+<div id="section">
+	<iframe src="main.html" name="main"></iframe>
+</div>
+<div id="footer">
+	<iframe src="footer.html"></iframe>
+</div>
+</body>
+</html>

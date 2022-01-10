@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** Html5 : Group_fieldset/legend **</title>
+</head>
+<body>
+<h2>** Html5 : Group_fieldset/legend **</h2>
+<form action="#" method="get">
+<fieldset> <!-- 입력양식의 그룹지정 -->
+	<legend>** 필수 입력 사항 **</legend> <!-- 입력양식그룹의 이름지정 -->
+	I     D :<input type="text" name="id" size="20"><br>
+	Password:<input type="password" name="password" size="20">
+</fieldset>
+<fieldset>
+	<legend>** 선택 사항 **</legend>
+	성별 : <input type="radio" name="gender" value="남" checked="checked">남성&nbsp;&nbsp;
+		  <input type="radio" name="gender" value="여">여성<br>
+	** 취미 **<br>
+	<input type="checkbox" name="hobby" value="1">Java 
+	<input type="checkbox" name="hobby" value="2">Game 
+	<input type="checkbox" name="hobby" value="3">여행 <br>
+	<input type="checkbox" name="hobby" value="4">등산 
+	<input type="checkbox" name="hobby" value="5">영화 
+	<input type="checkbox" name="hobby" value="6">독서 <br>
+	** 직업 **<br>
+	<select name="job">
+		<option value="1">개발자
+		<option value="2">강사
+		<option value="3">학생
+		<option value="4">자영업
+		<option value="5">미용사
+	</select><br>
+	** 관심분야 ** <br>
+	<select name="interest" multiple="multiple" size="5">
+		<option value="1">IT
+		<option value="2">자동차
+		<option value="3">게임산업
+		<option value="4">주식
+		<option value="5">스포츠
+		<option value="6">패션산업
+		<option value="7">재택산업
+	</select><br>
+	** 자기소개 ** <br>
+	<textarea rows="5" cols="50">
+	** 자기소개 **
+	500자 이내로 작성 하세요 ~~
+	</textarea>
+</fieldset>
+
+
+</form>
+
+
+</body>
+</html>

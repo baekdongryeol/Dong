@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** TopMenu_ 펼침메뉴 **</title>
+<style>
+	* { padding:3px; }
+	ul { list-style:none; }
+	.title {color:black; }
+	
+	ul a {
+		font-size:20px; font-weight:bold; color:gray;
+		text-decoration:none; line-height:25px;
+	} 
+	
+	#top > li { float: left; } 
+	ul ul { display:none; }
+	ul li:hover ul { display:block; }
+	ul li a:hover { color:green; }
+
+
+</style>
+
+</head>
+<body>
+<ul id="top">
+  <li><a class="title" href="">GoodSite</a>	
+  	<ul>
+		<li><a href="https://www.w3schools.com/colors/colors_groups.asp" target="_blank">ColorPicker</a>
+		<li><a href="https://oracle.com"  target="_blank">Oracle</a>
+		<li><a href="http://docs.oracle.com/javase/8/docs/api"  target="_blank">JavaAPI</a>
+		<li><a href="http://www.eclipse.org"  target="_blank">Eclips</a>
+		<li><a href="http://tomcat.apache.org"  target="_blank">Tomcat</a>
+  	</ul>
+  <li><a class="title" href="">HTML</a>	
+  	<ul>
+		<li><a href="../html01/ex01_start.html" target="main">Start</a>
+		<li><a href="../html01/ex02_specialCharacter.html" target="main">Special</a>
+		<li><a href="../html01/ex03_imageLink.html" target="main">Image</a>
+  	</ul>
+  <li><a class="title" href="">CSS</a>	
+  	<ul>
+		<li><a href="../css01/ex01_startCss.html" target="main">StartCSS</a>
+		<li><a href="../css01/ex03_03struChild.html" target="main">StrucChild</a>
+		<li><a href="../css01/ex03_04state.html" target="main">State</a>
+  	</ul>
+  	<br>
+  <li><a href="./main.html" target="main" class="title">[HOME]</a>	
+</ul>
+</body>
+</html>

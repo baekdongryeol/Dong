@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** Background Image Test 02 **</title>
+<style>
+	#container {
+		/* width:100%; height:100%;  -> 출력되는 컨텐츠 크기의 100% */
+		width:100vw; height:100vh; /* 보여지는 view 의 100% */ 
+		background-image:url("../image/snow111.jpg"), url("../image/summersea.jpg") ;
+		background-attachment:fixed;
+		background-repeat:no-repeat;
+		background-size:100% 100%
+	}
+	h3,pre {
+		text-align:center;
+	}
+</style>
+</head>
+<body>
+<div id="container">
+	<div>
+		<h3>** Background Image Test 02 **</h3>
+		<h3>=> 어디로 여행가고 싶은가요 ~~</h3>
+	</div>
+<h3><pre>
+ ** Layer **
+ => 이미지를 여러개를 지정했을때 각각의 그림을 레이어라고 부릅니다.  
+ => 두개의 이미지는 겹쳐 있으며 앞쪽이 없으면 뒤쪽이 나타남. 
+</pre></h3>
+</div>
+</body>
+</html>

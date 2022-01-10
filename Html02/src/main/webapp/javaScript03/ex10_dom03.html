@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** DOM3_JS 단계별 실행절차 **</title>
+<script>
+// 1. 선언적함수와 변수
+//=> 파싱 단계에서는 선언적함수 와 명시적 전역변수명이 정의됨
+//=> 이때 변수의 값은 할당되지않고, 익명함수와 객체는 undefined 값을 가짐
+
+// => Before	
+	document.write("** Before name => "+name+"<br>"); // O : 값은 할당되지않음
+	//document.write("** Before address => "+address+"<br>"); // X 
+	// -> 실행시 오류 address is not defined
+	document.write("** Before first => "+first+"<br>"); // O
+	document.write("** Before first() => "+first(5)+"<br>"); // O -> X (변수 first 때문)
+	//document.write("** Before noName() => "+noName(5)+"<br>"); // O : undefined
+	// -> 실행시 오류 noName is not a function
+	document.write("** Before noName() => "+noName+"<br>"); // undefined 출력
+	
+	var name='홍길동' ;  // 명시적 선언
+	address='경기도 성남';// 묵시적 선언  
+	var first = 123;
+	function first(x) { return x*x; } // 선언적함수
+	var noName = function(x) { return x*x; } // 익명함수
+	
+// => After	
+	document.write("** After name => "+name+"<br>"); // 홍길동
+	document.write("** After address => "+address+"<br>"); // 경기도 성남
+	document.write("** After first => "+first+"<br>"); // 123
+	//document.write("** After first() => "+first(5)+"<br>"); 
+	// first 에 값이(123) 할당되며 사라짐 -> first is not a function
+	document.write("** After noName() => "+noName(5)+"<br>"); // 25
+	document.write("** After noName => "+noName+"<br>"); 
+	
+// 2. 객체의 속성과 메서드
+// => 파싱단계에서 객체는 이름만 정의되고, undefined 값을 가짐.
+// => Before
+	document.write("** Object Test **<br>");
+	document.write("** Before student => "+student+"<br>"); // undefined
+	//document.write("** Before student.name => "+student.name+"<br>");
+	//student.eat('떡볶이');
+	// 실행오류 -> Uncaught TypeError: Cannot read properties of undefined (reading 'name') 
+	
+	var student={
+		name:'홍길동',
+		score:100,
+		eat:function(menu) {
+			//menu='test' ;  // 출력문 없는경우 Test 용
+			document.write(this.name+"학생은 점심으로 "+menu+"를  맛있게 먹었습니다.<br>");
+			//return this.name+"학생은 점심으로 "+menu+"를  맛있게 먹었습니다.<br>" ;
+			// Test 용
+		},
+		first:function(x) { return x*x; }
+	} //student
+
+	// => After
+	document.write("** After student => "+student+"<br>");
+	// => 객체명 만 사용했을때 Type 을 return => [object Object]
+	
+	// ** 출력문 내에서 return 값이 있는함수 호출하는경우 와 없는함수 호출하는경우 비교
+	// => document.write 내에서 document.write 문이 있는 메서드를 호출한 경우
+	//    해당 메서드를 먼저 실행하고 ( 이때 출력문이 있으면 출력 ) ,
+	//    student.eat("피자") 가 return 값이 없으므로 undefined 가 출력됨.
+	document.write("** After student.first => "+student.first(7)+"<br>");
+	document.write("** After student.eat => "+student.eat('떡볶이')+"<br>");
+
+</script>
+</head>
+<body>
+<hr>
+<pre><h3>
+** DOM3_JS 단계별 실행절차 **
+
+1. 파싱단계 : 구문분석 단계
+	=> 선언적함수들과, 명시적(var, let, const) 전역변수들을 정의 
+	=> 함수먼저, 다시 변수 정의 
+	=> 변수(객체형, 익명함수형 포함)들은 이름만 정의하고 값은 실행시에 할당 
+	=> 그러므로 파싱 단계에서 변수는 값이 없고, 익명함수와 객체는 undefined 값을 가짐. 
+
+2. 실행단계
+	=> 순차적으로 실행 (함수의 정의는 건너뜀)
+</h3></pre>
+</body>
+</html>

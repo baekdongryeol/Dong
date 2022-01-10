@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** JavaScript Operator **</title>
+</head>
+<body>
+<h3>** JavaScript Operator **</h3>
+<h3>1. 4칙연산</h3>
+<script>
+	var a=7, b=3;
+	document.write("a+b="+(a+b)+"<br>"); // 10
+	document.write("a-b="+(a-b)+"<br>"); // 4
+	document.write("a*b="+(a*b)+"<br>"); // 21 
+	document.write("a/b="+(a/b)+"<br>"); // 2 or 2.???? -> 실수연산
+	document.write("a%b="+(a%b)+"<br>"); // 1
+</script>
+<h3>2. 단항 연산</h3>
+<script>
+	var a=10, b=10;
+	document.write("++a="+(++a)+"<br>"); // 11, a=11
+	document.write("b++="+(b++)+"<br>"); // 10, b=11
+	document.write("++a="+(--a)+"<br>"); // 10, a=10
+	document.write("b++="+(b--)+"<br>"); // 11, b=10 
+	document.write("a+b="+(a+b)+"<br>"); // 20
+</script>
+<h3>3. 축약 대입 연산</h3>
+<script>
+	var a=10, b=3;
+	document.write("a+=b : "+(a+=b)+"<br>"); // a=a+b -> 13
+	document.write("a-=b : "+(a-=b)+"<br>"); // a=a-b -> 10  
+	document.write("a*=b : "+(a*=b)+"<br>"); // a=a*b -> 30  
+	document.write("a/=b : "+(a/=b)+"<br>"); // a=a/b -> 10  
+	document.write("a%=b : "+(a%=b)+"<br>"); // a=a%b -> 1  
+</script>
+<h3>4. 관계(비교) 연산</h3>
+<script>
+	var a=10, b=3;
+	document.write("a > b : "+(a>b)+"<br>");  // true
+	document.write("a < b : "+(a<b)+"<br>");  // false
+	document.write("a >= b : "+(a>=b)+"<br>");// true
+	document.write("a <= b : "+(a<=b)+"<br>");// false
+	document.write("a == b : "+(a==b)+"<br>");// false 
+	document.write("a != b : "+(a!=b)+"<br>");// true
+	// ** 동일성 비교
+	// => '==' : Type 을 비교하지 않음
+	// => "===" : Type 까지 비교함
+	a=10; b="10";
+	document.write("* 동일성비교1 (10=='10') : "+(a==b)+"<br>"); // true (java: red_Mark)
+	document.write("* 동일성비교2 (10==='10') : "+(a===b)+"<br>"); // false
+</script>
+<h3>5. 조건연산 (삼항식)</h3>
+	=> Condition ? T : F ; <br>
+<script>
+	var a=10, b=20;
+	document.write("* a,b 중 큰수 출력하기 : "+((a>b)?a:b)+"<br>");
+	document.write("* a,b 두수의 차이 출력하기 : "+((a>b)?(a-b):(b-a))+"<br>");
+</script>	
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** inCheck05: JS,JQ 혼합 submit & focusout 이벤트 활용 **</title>
+<script src="../myLib/jquery-3.2.1.min.js"></script>
+<script>
+/* 
+** 혼합방식으로 JS submit & JQ focusout 이벤트 활용
+=> input Tag를 개별적으로 사용해야 하므로 
+	-> 개별적 오류 확인을 위한 switch 변수 (전역)
+	-> 개별적 focusout 이벤트 핸들러 작성 : JQuery
+	-> 전체적으로 입력 오류 가 없음을 확인하고 submit 여부를 판단 & 실행 : JS 의 function */
+	
+// 1) 개별적 오류 확인을 위한 switch 변수 	
+  var iCheck=false;
+  var pCheck=false;	
+  var nCheck=false;
+  var bCheck=false;
+  var oCheck=false; 
+  var wCheck=false;  
+  
+// 2) 개별적 오류점검위한 focusout 이벤트 핸들러 : JQuery
+  $(function() {
+	$('#id').focus();	 
+	// ** enter 누르면 다음 으로 이동하도록 keydown 이벤트핸들러 추가 
+	$('#id').keydown(function(e){
+		if (e.which==13) {
+			e.preventDefault(); 
+			// => form 에 submit 이 있는경우
+			// => enter 누르면 자동 submit 발생되므로 이를 제거함
+			$('#password').focus()
+		}
+	}).focusout(function() {
+		var id=$('#id').val(); // id=$(this).val()
+		//** ID : 길이4 이상, 영문자,숫자 로만 구성 
+		if (id.length<4) {
+			$('#iMessage').html('~~ id 는 4글자 이상 입니다 ~~');
+			iCheck=false;
+		}else if ( id.replace(/[a-z.0-9]/gi ,'').length > 0 ) {
+			$('#iMessage').html('~~ id 는 영문자, 숫자로만 입력 하세요 ~~');
+			iCheck=false;
+		}else {
+			$('#iMessage').html('');
+			iCheck=true;
+		}
+	}); //id_focusout
+	
+	$('#password').focusout(function() {
+		var password=$(this).val()
+		//** Password : 길이4이상, 영문자, 숫자와 특수문자는 반드시 1개 이상 포함할것
+		if (password.length<4) {
+			$('#pMessage').html('~~ password 는 4글자 이상 입니다 ~~');
+			pCheck=false;
+		}else if ( password.replace(/[!-*.@]/gi,'').length >= password.length ) {
+			$('#pMessage').html('~~ password 는 특수문자가 반드시 1개 이상 포함되어야 합니다 ~~');
+			pCheck=false;
+		}else if ( password.replace(/[a-z.0-9.!-*.@]/gi ,'').length > 0 ) {
+			$('#pMessage').html('password 는 영문자, 숫자, 특수문자 로만 입력 하세요');
+			pCheck=false;
+		}else {
+			$('#pMessage').html('');
+			pCheck=true;
+		}
+	}); //password_focusout
+	
+	$('#name').focusout(function(){
+		var name=$(this).val();
+		// ** Name : 길이 2이상, 영문 또는 한글로 만 입력
+		if (name.length<2) {
+			$('#nMessage').html(' ~~ name 은 2글자 이상  입니다 ~~');
+			nCheck=false;
+		}else if (name.replace(/[a-z.가-힣]/gi,'').length > 0) {
+			$('#nMessage').html(' ~~ name 은 한글 또는 영문 으로만 입력 하세요 ~~');
+			nCheck=false;
+		}else {
+			$('#nMessage').html('');
+			nCheck=true;
+		}	
+	}); //name_focusout
+	
+	$('#birthd').focusout(function(){
+		var birthd=$(this).val();
+		// ** Birthd: 길이 10 인지
+		if (birthd.length != 10) {
+			$('#bMessage').html(' ~~ 생년월일을 정확하게 입력 하세요 (yyyy-mm-dd) ~~');
+			bCheck=false;
+		}else {
+			$('#bMessage').html('');
+			bCheck=true;
+		}	
+	}); //birthd_focusout
+	
+	$('#point').focusout(function(){
+		var point=$(this).val();
+		// ** Point: 정수 (jQuery 함수 isNumeric ,  . 이 포함되면 안됨) 
+		if ( $.isNumeric(point)==false ) {
+			$('#oMessage').html(' ~~ point는 숫자로만 정확하게 입력 하세요 ~~ ');
+			oCheck=false;
+		}else if (point.replace(/[.]/g,'').length < point.length) {
+			$('#oMessage').html(' ~~ point는 정수로만 정확하게 입력 하세요 ~~ ');
+			oCheck=false;
+		}else {
+			$('#oMessage').html('');
+			oCheck=true;
+		}
+	}); //point_focusout
+	
+	$('#weight').focusout(function(){
+		var weight=$(this).val();
+		// ** Weight: 실수, 20~200 구간 확인
+		if ( $.isNumeric(weight)==false ) {
+			$('#wMessage').html(' ~~ weight는 숫자로만 정확하게 입력 하세요 ~~ ');
+			wCheck=false;
+		}else if (parseFloat(weight) < 20 || parseFloat(weight) > 200 ) {
+		// }else if (Number(weight) < 20 || Number(weight) > 200 ) {	
+			$('#wMessage').html('weight 범위를 벗어남: 20~200 사이의 숫자를 입력 하세요');
+			wCheck=false;
+		}else {
+			$('#wMessage').html('');
+			wCheck=true;
+		}
+	}); //weight_focusout
+	  
+  }); //ready
+
+// 3) submit 여부를 판단 & 실행 : JS 의 function
+  function inCheck(){
+	// 모든 항목에 오류 없음을 확인 : switch 변수
+	if (iCheck==false) {
+		$('#iMessage').html('~~ id 를 확인하세요 ~~');
+	}
+	if (pCheck==false) {
+		$('#pMessage').html('~~ password 를 확인하세요 ~~');
+	}	
+	if (nCheck==false) {
+		$('#nMessage').html('~~ name 을 확인하세요 ~~');
+	}	
+	if (bCheck==false) {
+		$('#bMessage').html('~~ birthday 를 확인하세요 ~~');
+	}
+	if (oCheck==false) {
+		$('#oMessage').html('~~ point 를 확인하세요 ~~');
+	}
+	if (wCheck==false) {
+		$('#wMessage').html('~~ weight 를 확인하세요 ~~');
+	}	
+	// 모든 오류 확인완료 
+	// => 없으면 submit : return true , 
+	//    있으면 submit 을 취소 : return false 
+	if ( iCheck && pCheck && nCheck &&
+		 bCheck && oCheck && wCheck ) {
+		// => submit : 404
+		if (confirm("~~ 정말 가입 하십니까 ? (Yes:확인 / No:취소)")==false) {   
+		 	  alert('~~ 가입이 취소 되었습니다 ~~');
+		 	  return false;
+		}else return true; // submit 진행 -> 404   
+	} else return false; 
+  } //inCheck
+
+</script>
+<style>
+	.message {	color:red;
+				font-size:x-small;
+				font-style:italic;
+			}
+</style>
+
+</head>
+<body>
+<pre><h3>** input Tag 의 입력값 무결성 점검_submit & focusout **</h3>
+=> 혼합방식으로 JS submit & JQ focusout 이벤트 활용
+=> input Tag를 개별적으로 사용해야 하므로 
+	-> 개별적 오류 확인을 위한 switch 변수,
+	-> 개별적 focusout 이벤트핸들러 function 작성 : JQuery,
+	-> 전체적으로 입력 오류 가 없음을 확인하고 submit 여부를 판단 & 실행 : JS 의 function
+=> Message : 해당 Tag 하단에 붉은 글씨로 표시 	
+</pre>
+<hr>
+<h3>** inCheck05: submit & focusout JoinForm **</h3>
+<form action="join" method="get" id="myForm">
+<table>
+	<tr height="40"><td bgcolor="AliceBlue">I  D</td>
+		<td><input type="text" name="id" id="id" size="20"><br>
+			<span id="iMessage" class="message"></span></td>
+	</tr>
+	<tr height="40"><td bgcolor="AliceBlue">Password</td>
+		<td><input type="password" name="password" id="password" size="20"><br>
+			<span id="pMessage" class="message"></span></td>
+	</tr>
+	<tr height="40"><td bgcolor="AliceBlue">Name</td>
+		<td><input type="text" name="name" id="name" size="20"><br>
+			<span id="nMessage" class="message"></span></td>
+	</tr>
+	<tr height="40"><td bgcolor="AliceBlue">Birthday</td>
+		<td><input type="date" name="birthd" id="birthd"><br>
+			<span id="bMessage" class="message"></span></td>
+	</tr>
+	<tr height="40"><td bgcolor="AliceBlue">Point</td>
+		<td><input type="text" name="point" id="point" size="20"><br>
+			<span id="oMessage" class="message"></span></td>
+	</tr>
+	<tr height="40"><td bgcolor="AliceBlue">Weight</td>
+		<td><input type="text" name="weight" id="weight" size="20"><br>
+			<span id="wMessage" class="message"></span></td>
+	</tr>
+	<tr height="40"><td></td>
+		<td><input type="submit" value="가입" onclick="return inCheck()">&nbsp;&nbsp;
+			<input type="reset" value="취소">
+		</td>
+	</tr>
+</table></form>
+
+</body>
+</html>

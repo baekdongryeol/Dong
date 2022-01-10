@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** Frame Animation02 Start & Stop **</title>
+<script src="../myLib/jquery-3.2.1.min.js"></script>
+<script>
+
+//** Window 객체의  주기 관련 내장 함수 
+//=> setTimeout("실행할 자바코드",코드실행대기시간) : 화면전환에 이용
+//	 setTimeout("location.href='login_form.jsp'", 1000*10);
+//	 setTimeout("location.href='login_form.jsp?id=banana'", 1000*10);
+
+//=> setInterval("실행할 자바코드",반복주기)
+//=> cleartInterval : setInterval 의 지정을 취소해줌
+//=> clearInterval(clear대상) : setInterval(..) 을 인식가능 하도록 변수에 할당 
+//	 var a=setInterval("실행할 자바코드",반복주기);
+//	 cleartInterval(a) : setInterval 멈춤
+
+	var frames=[
+		'0.png','1.png','2.png','3.png',
+		'4.png','5.png','6.png','7.png',
+		'8.png','9.png','10.png','11.png',
+		'12.png','13.png','14.png'];
+	var i=0;
+	
+	function running() {
+		$img =$("#img") ; 
+		img.src=frames[i++ % frames.length] ;
+		if (i==frames.length) i=0;
+	}
+	
+	var a=setInterval(running, 200) ;
+	console.log('**** a1 => '+a);
+	function start() {
+		//setInterval('running()', 200); // 주기의 단위 1/1000(초)
+		//a=setInterval(running, 200); // callBack 함수 형태로 call -> OK
+		// 단, 계속 연달아 클릭(call) 하면 함수가 누적되면서 값이 달라져서 속도 빨라지고 stop 안됨.
+		// => 해결: 처음 start 했을때만 값을 할당하도록 해줌.
+		console.log('**** a2 => '+a);
+		if (a==1) a=setInterval(running, 200);
+		
+	} //start
+
+	// running() 함수를 멈추려면, setInterval(running(),200) 을 종료시켜야 됨.
+	// => clearInterval : setInterval(..) 를 취소시켜줌. 
+	// => clearInterval(clear대상) : setInterval(..) 을 인식가능 하도록 변수에 할당 
+	function stop() {
+		clearInterval(a) ;
+		a=1;
+	} //stop
+</script>
+
+</head>
+<body>
+<h3>** Frame Animation02 Start & Stop **</h3>
+=> window 객체의 setInterval 내장함수 활용<br>
+<hr>
+<img id="img"><br>
+<hr>
+<button onclick="start()">Start</button>&nbsp;&nbsp;&nbsp;
+<button onclick="stop()">Stop</button>
+</body>
+</html>

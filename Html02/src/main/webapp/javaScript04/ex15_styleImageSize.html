@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>*** Image Size 조정하기 ***</title>
+<script>
+// ** 1. 전통(Traditional) 방식으로 작성하기
+/*
+onload=function() {
+	var img = document.getElementById("img"); 
+	var sup = document.getElementById("sizeUp"); 
+	var sdown = document.getElementById("sizeDown");  
+	var uCount = 0 ; // SizeUp_count 값
+	var dCount = 0 ;  // SizeDown_count 값
+	
+	// ** sizeUp	
+	sup.onclick=function() {
+		dCount=0 ; // SizeDown_count 값 reset
+		if (uCount<10) {
+			img.width  += 10 ;
+			img.height += 10 ;
+			uCount ++ ;
+		}else { 
+			alert('~~ 연속 10회 이상은 클릭할 수 없습니다 ~~') ;
+		}
+	} //sup.onclick
+	
+	// ** sizeDown	
+	sdown.onclick=function() {
+		uCount=0 ; // SizeUp_count 값 reset
+		if (img.width>10 && img.height>10 && dCount<10) {
+			img.width  -= 10 ;
+			img.height -= 10 ;
+			dCount ++ ;
+		}else if (img.width<=10 || img.height<=10) {
+			alert('~~ 최소 크기 입니다~~') ;
+		}else {
+			alert('~~ 연속 10회 이상은 클릭할 수 없습니다 ~~') ;
+		} //if
+	} //sdown.onclick
+} //onload 	
+*/	
+// ** 2. 인라인+스크립트 방식
+// => 지역변수 사용시 : 버튼을 누를때마다 Count 값 reset 그러므로 정확하게 count 될수없음
+// => img, uCount, dCount 전역변수로 정의.
+//    이때 image 는 개별 function 내에서 전달 해야함.
+//    var image=document.getElementById("img"); 
+//    ->  onload 이벤트가 필요함.
+	var img ;
+	var uCount = 0 ;  // SizeUp_count 값
+	function imgSizeUp(){
+		img=document.getElementById("img");
+		dCount=0 ; // SizeDown_count 값 reset
+		if (uCount<10) {
+			img.width  += 10 ;
+			img.height += 10 ;
+			uCount ++ ;
+		}else { 
+			alert('** 방법2. 연속 10회 이상은 클릭할 수 없습니다 ~~') ;
+		} //if
+	} //imgSizeUp
+
+	var dCount = 0 ;  // SizeDown count 값
+	function imgSizeDown(){
+		img=document.getElementById("img");
+		uCount=0 ; // Big count 값 reset
+		if (img.width>10 && img.height>10 && dCount<10) {
+			img.width  -= 10 ;
+			img.height -= 10 ;
+			dCount ++ ;
+		}else if (img.width<=10 || img.height<=10) {
+			alert('** 방법2. 최소 크기 입니다~~') ;
+		}else {
+			alert('** 방법2. 연속 10회 이상은 클릭할 수 없습니다 ~~') ;
+		}//if
+	}//imgSizeDown
+
+</script>
+</head>
+<body>
+<hr>
+<img src="../image/aaa.gif" width="150" height="180" id="img"><br>
+<button id="sizeUp" onclick="imgSizeUp()">점점크게</button>&nbsp;&nbsp;
+<button id="sizeDown" onclick="imgSizeDown()">점점작게</button>
+<hr>
+<h3><pre>
+** 실습과제
+ : Image Size 조정하기	 
+=> 버튼1 : 이미지의 현재 크기를 10씩 커지는 버튼 
+          10번 이상 연속해서 클릭하면 alert 으로 경고 메시지 출력하기
+          ('~~ 연속 10회 이상은 클릭할 수 없습니다 ~~')  
+=> 버튼2 : 이미지의 현재 크기를 10씩 10번 작아지는 버튼 
+		  10번 이상 연속해서 클릭하면 alert 으로 경고 메시지 출력하기 
+		  음수 이면 경고 메시지 (~~ 최소 크기 입니다 ~~) 
+</pre></h3>
+</body>
+</html>

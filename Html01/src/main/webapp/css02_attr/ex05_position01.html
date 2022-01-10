@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>** Position01 절대위치, 상대위치 **</title>
+<!-- position. 기본 도형 3개를 이용하여 
+		position01 -> positioning, position
+		position02 -> overflow, z-index Test   -->
+<style>
+	/* 	test1) position 속성 지정 전.후 비교
+				=> 위치값을 줄때에는 position 속성을 지정해야함.
+				   ( left, top  적용여부 확인 ) 
+		test2) position 속성값 Test
+		 		=> absolute / fixed / relative / static
+	*/
+	.pbox { width:400px; height:200px;
+			border:3px solid black;
+			left:30px; top:30px; position:absolute; }
+	
+	.box { width:100px; height:100px; position:relative;}
+				
+	.box:nth-child(1) {
+			left:10px; top:10px; background-color: red; }
+	.box:nth-child(2) {
+			left:50px; top:100px; background-color: yellow; }		
+	.box:nth-child(3) {
+			left:90px; top:200px; background-color: blue; }
+</style>
+
+</head>
+<body>
+<h3>** Position Test **</h3>
+<div class="pbox">
+	<div class="box">1111</div>
+	<div class="box">2222</div>
+	<div class="box">3333</div>
+</div>
+<hr>
+<pre>
+** Positioning(위치) 속성 **
+=> left, top, right, bottom, position
+=> 위치값을 줄때에는 position 속성을 지정해야함.
+
+** Position
+=> 요소의 위치를 상대적으로 나타나게 할 것인지,
+   또는 항상 같은 위치에 나타나게 할 것인지 설정.
+=> 절대좌표 : 값에 의한 절대 위치 (항상 같은 위치) 
+	- absolute : 다른요소에 무관하게 지정된 절대위치 단, 부모위치 기준
+	- fixed : 항상 Body를 기준으로 함 (부모위치 와 무관)
+=> 상대좌표 : 요소를 입력순서에 따른 상대 위치 지정 
+	- relative : 초기위치(Position을 지정하지 않았을때 본래 있어야 하는 위치)에서 이동
+	             -> 부모위치를 시작점으로 이전요소들의 크기를 반영하고 margin을 계산하여 이동 
+	- static : 상대 위치 좌표 (margin 무시)
+</pre>
+
+</body>
+</html>
